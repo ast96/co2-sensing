@@ -1,5 +1,4 @@
 //Measure CO2, temperature, relative humidty, light and display on 16x2 I2C LCD
-
 #include "SD.h"
 #include <Adafruit_SCD30.h>              
 #include <LiquidCrystal_I2C.h>
@@ -16,7 +15,6 @@ Adafruit_SCD30  scd30;
 
 const int buttonPin = 2;
 int buttonState = 0; 
-//const int chipSelect = D8; 
 String filename = "output.txt";
 
 
@@ -38,9 +36,16 @@ void setup() {
   Serial.print(scd30.getMeasurementInterval()); 
   Serial.println(" seconds");
 
-  while (!SD.begin(CHIP_SELECT)) {
-    Serial.println("Initialization failed!");
+  SD.begin(CHIP_SELECT); 
+  if(!SD.begin(CHIP_SELECT)) {
+    Serial.println("Card Mount Failed");
+    return;
   }
+
+//  while (!SD.begin(CHIP_SELECT)) {
+//    Serial.println("Initialization failed!");
+//  }
+
   // write headers to output file
   write_to_sd_card("Temp, Relative Humidity, CO2");
 
@@ -74,6 +79,7 @@ void button() {
 void write_to_sd_card(String data) {
     File dataFile = SD.open(filename, FILE_WRITE);
     digitalWrite(LED, LOW);
+    Serial.println(data);
     if (dataFile) {
       dataFile.println(data);
       dataFile.close();
@@ -105,7 +111,7 @@ void loop() {
     String relative_humidity_reading = String(scd30.relative_humidity);
 
     /* Serial output for debugging */
-    Serial.println("Temperature: " + temp_reading + "degrees C");
+    Serial.println("Temperature: " + temp_reading + "degC");
     Serial.println("Relative Humidity: " + relative_humidity_reading + "%");    
     Serial.println("CO2: " + co2_reading + " ppm");
 
@@ -128,5 +134,5 @@ void loop() {
     Serial.println(buttonState);
     button();
 
-    delay(1000);
+    delay(2000);
 }
