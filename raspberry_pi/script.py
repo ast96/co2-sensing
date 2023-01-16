@@ -1,9 +1,6 @@
-import pathlib
+from pathlib import Path
 import board
 import adafruit_scd30
 
-def foo():
-    return "Hello world!"
-
 def create_file(file):
-    pathlib.Path.touch(file)
+    Path.touch(file)
