@@ -1,13 +1,13 @@
 from datetime import datetime
 from pathlib import Path
-from random import randbytes
+from random import getrandbits
 
 import board
 import adafruit_scd30
 
 
 def generate_unique_filename():
-    return datetime.now().isoformat() + "_" + str(randbytes(4))
+    return datetime.now().isoformat() + '_' + hex(getrandbits(16)) + '.csv'
 
 def create_file(file):
     Path.touch(file)
