@@ -14,6 +14,12 @@ def test_generate_unique_filename_1():
 def test_generate_unique_filename_2():
     name = script.generate_unique_filename()
     assert name[-4:] == '.csv'
+
+def test_get_script_directory():
+    assert script.get_script_directory() == '/home/akselthomas/workspace/co2-sensing/raspberry_pi'
+
+def test_get_output_directory():
+    assert script.get_output_directory() == '/home/akselthomas/workspace/co2-sensing/raspberry_pi/output'
     
 def test_create_file(tmp_path):
     file = tmp_path / 'test-output.txt'

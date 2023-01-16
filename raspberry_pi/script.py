@@ -9,6 +9,12 @@ import adafruit_scd30
 def generate_unique_filename():
     return datetime.now().isoformat() + '_' + hex(getrandbits(16)) + '.csv'
 
+def get_script_directory():
+    return str(Path(__file__).parent.resolve())
+
+def get_output_directory():
+    return get_script_directory() + '/output'
+
 def create_file(file):
     Path.touch(file)
 
