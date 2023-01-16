@@ -1,7 +1,15 @@
 from pathlib import Path
+
 import board
 import adafruit_scd30
+
 import script
+
+
+def test_generate_unique_filename():
+    name1 = script.generate_unique_filename()
+    name2 = script.generate_unique_filename()
+    assert name1 != name2
 
 def test_create_file(tmp_path):
     file = tmp_path / 'test-output.txt'
