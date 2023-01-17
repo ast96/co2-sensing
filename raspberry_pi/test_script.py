@@ -41,3 +41,6 @@ def test_collect_data_row_2():
     data_row = script.collect_data_row(sensor_board)
     assert len(data_row.split(',')) == 3
 
+def test_collect_data_row_3():
+    data_row = script.collect_data_row(sensor_board)
+    assert not list(filter(lambda x: not x, data_row.split(',')))
