@@ -25,7 +25,9 @@ def check_connection_to_board(sensor_board):
     return sensor_board.data_available
 
 def main():
-    return
+    # note that the file got created by `root`, not my user
+    path = Path(get_output_directory() + '/' + generate_unique_filename())
+    create_file(path)
 
 if __name__ == '__main__':
     main()
