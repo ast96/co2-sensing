@@ -44,3 +44,6 @@ def test_collect_data_row_2():
 def test_collect_data_row_3():
     data_row = script.collect_data_row(sensor_board)
     assert not list(filter(lambda x: not x, data_row.split(',')))
+
+def test_make_header_row():
+    assert script.make_header_row() == 'Timestamp,CO2,Temperature'
