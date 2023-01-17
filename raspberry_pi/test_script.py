@@ -6,6 +6,8 @@ import adafruit_scd30
 import script
 
 
+sensor_board = adafruit_scd30.SCD30(board.I2C())
+
 def test_generate_unique_filename_1():
     name1 = script.generate_unique_filename()
     name2 = script.generate_unique_filename()
@@ -27,8 +29,15 @@ def test_create_file(tmp_path):
     assert Path(file).exists()
 
 def test_check_connection_to_board():
-    sensor_board = adafruit_scd30.SCD30(board.I2C())
     assert script.check_connection_to_board(sensor_board) == 1
 
 def test_connect_to_board():
     assert isinstance(script.connect_to_board(), adafruit_scd30.SCD30)
+
+def test_collect_data_row_1():
+    assert isinstance(script.collect_data_row(sensor_board), str)
+
+def test_collect_data_row_2():
+    data_row = script.collect_data_row(sensor_board)
+    assert len(data_row.split(',')) == 3
+

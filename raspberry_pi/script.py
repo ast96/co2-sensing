@@ -24,6 +24,10 @@ def connect_to_board():
 def check_connection_to_board(sensor_board):
     return sensor_board.data_available
 
+def collect_data_row(sensor_board):
+    data_row = datetime.now().isoformat() + ',' + str(sensor_board.CO2) + ',' + str(sensor_board.temperature)
+    return data_row
+
 def main():
     # note that the file got created by `root`, not my user
     path = Path(get_output_directory() + '/' + generate_unique_filename())
