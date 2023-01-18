@@ -47,3 +47,13 @@ def test_collect_data_row_3():
 
 def test_make_header_row():
     assert script.make_header_row() == 'Timestamp,CO2,Temperature'
+
+def test_write_line_to_file(tmp_path):
+    file = tmp_path / 'test-output.txt'
+    script.create_file(file)
+    with open(file, 'a') as f:
+        script.write_line_to_file('foo', f)
+    with open(file, 'r') as f:
+        assert f.readline() == 'foo'
+
+

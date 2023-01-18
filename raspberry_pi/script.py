@@ -33,6 +33,9 @@ def collect_data_row(sensor_board):
 def make_header_row():
     return 'Timestamp,CO2,Temperature'
 
+def write_line_to_file(line, file):
+    file.write(line)
+
 def main():
     # note that the file got created by `root`, not my user
     path = Path(get_output_directory() + '/' + generate_unique_filename())
