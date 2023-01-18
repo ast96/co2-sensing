@@ -26,20 +26,24 @@ def check_connection_to_board(sensor_board):
 
 def collect_data_row(sensor_board):
     data_row = datetime.now().isoformat()
-    data_row += ',' + str(sensor_board.CO2)
-    data_row += ',' + str(sensor_board.temperature)
+    data_row += ',' + '{0:.0f}'.format(sensor_board.CO2)
+    data_row += ',' + '{0:.1f}'.format(sensor_board.temperature)
     return data_row
 
 def make_header_row():
     return 'Timestamp,CO2,Temperature'
 
 def write_line_to_file(line, file):
-    file.write(line)
+    file.write(line + '\n')
 
 def main():
+    sensor_board = connect_to_board()
     # note that the file got created by `root`, not my user
     path = Path(get_output_directory() + '/' + generate_unique_filename())
     create_file(path)
+    with open(path, 'a') as f:
+        write_line_to_file(make_header_row(), f)
+        write_line_to_file(collect_data_row(sensor_board), f)
 
 if __name__ == '__main__':
     main()
