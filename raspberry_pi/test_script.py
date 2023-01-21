@@ -54,6 +54,6 @@ def test_write_line_to_file(tmp_path):
     with open(file, 'a') as f:
         script.write_line_to_file('foo', f)
     with open(file, 'r') as f:
-        assert f.readline() == 'foo'
+        assert f.readline() == 'foo\n'
 
 
