@@ -26,7 +26,7 @@ def check_connection_to_board(sensor_board):
     return sensor_board.data_available
 
 def collect_data_row(sensor_board):
-    data_row = datetime.now().isoformat()
+    data_row = datetime.now().isoformat(timespec='seconds')
     data_row += ',' + '{0:.0f}'.format(sensor_board.CO2)
     data_row += ',' + '{0:.1f}'.format(sensor_board.temperature)
     return data_row
@@ -52,7 +52,6 @@ def main():
             sleep(30)
             i += 1
 
-    # then, test it by running it for 2 minutes, instead
     # (optionally) have it shut down the raspberry pi at the end
 
 if __name__ == '__main__':
