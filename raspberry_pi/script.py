@@ -1,6 +1,7 @@
 from datetime import datetime
 from pathlib import Path
 from random import getrandbits
+from time import sleep
 
 import board
 import adafruit_scd30
@@ -48,8 +49,8 @@ def main():
         i = 0
         while i < MAX_ITERATIONS:
             write_line_to_file(collect_data_row(sensor_board), f)
-            time.sleep(30)
-            i++
+            sleep(30)
+            i += 1
 
     # then, test it by running it for 2 minutes, instead
     # (optionally) have it shut down the raspberry pi at the end
