@@ -38,7 +38,9 @@ def write_line_to_file(line, file):
     file.write(line + '\n')
 
 def main():
-    MAX_ITERATIONS = 360    # 360 reads = 180 min / 0.5 min/read (3 hrs)
+    # 360 reads = 180 min / 0.5 min/read (3 hrs)
+    # 5 minute fudge factor
+    MAX_ITERATIONS = 350    
     sensor_board = connect_to_board()
     collect_data_row(sensor_board)      # warm up the sensor
     # note that the file got created by `root`, not my user
