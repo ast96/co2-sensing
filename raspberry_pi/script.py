@@ -1,6 +1,7 @@
 from datetime import datetime
 from pathlib import Path
 from random import getrandbits
+from subprocess import run
 from time import sleep
 
 import board
@@ -40,7 +41,7 @@ def write_line_to_file(line, file):
 def main():
     # 360 reads = 180 min / 0.5 min/read (3 hrs)
     # 5 minute fudge factor
-    MAX_ITERATIONS = 350    
+    MAX_ITERATIONS = 350
     sensor_board = connect_to_board()
     collect_data_row(sensor_board)      # warm up the sensor
     # note that the file got created by `root`, not my user
@@ -53,8 +54,7 @@ def main():
             write_line_to_file(collect_data_row(sensor_board), f)
             sleep(30)
             i += 1
-
-    # (optionally) have it shut down the raspberry pi at the end
+    run(['shutdown', '-h', 'now'], capture_output=True)
 
 if __name__ == '__main__':
     main()
