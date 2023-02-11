@@ -54,7 +54,9 @@ def main():
             write_line_to_file(collect_data_row(sensor_board), f)
             sleep(30)
             i += 1
-    run(['shutdown', '-h', 'now'], capture_output=True)
+    run('shutdown -h now', capture_output=True)
+#    run(['shutdown', '-h', 'now'], capture_output=True)
+
 
 if __name__ == '__main__':
     main()
