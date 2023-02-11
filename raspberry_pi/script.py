@@ -41,8 +41,15 @@ def write_line_to_file(line, file):
 def main():
     # 360 reads = 180 min / 0.5 min/read (3 hrs)
     # 5 minute fudge factor
-    MAX_ITERATIONS = 350
-    sensor_board = connect_to_board()
+    MAX_ITERATIONS = 10
+    run(['/usr/sbin/i2cdetect', '-y', '1'], capture_output=True)
+    sleep(0.1)
+    run(['/usr/sbin/i2cdetect', '-y', '1'], capture_output=True)
+    try:
+        sensor_board = connect_to_board()
+    except:
+        sleep(1)
+        sensor_board = connect_to_board()
     collect_data_row(sensor_board)      # warm up the sensor
     # note that the file got created by `root`, not my user
     path = Path(get_output_directory() + '/' + generate_unique_filename())
@@ -54,8 +61,7 @@ def main():
             write_line_to_file(collect_data_row(sensor_board), f)
             sleep(30)
             i += 1
-    run('shutdown -h now', capture_output=True)
-#    run(['shutdown', '-h', 'now'], capture_output=True)
+    run(['/usr/sbin/shutdown', '-h', 'now'], capture_output=True)
 
 
 if __name__ == '__main__':
