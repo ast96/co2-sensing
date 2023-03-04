@@ -41,7 +41,7 @@ def write_line_to_file(line, file):
 def main():
     # 360 reads = 180 min / 0.5 min/read (3 hrs)
     # 5 minute fudge factor
-    MAX_ITERATIONS = 10
+    MAX_ITERATIONS = 360
     run(['/usr/sbin/i2cdetect', '-y', '1'], capture_output=True)
     sleep(0.1)
     run(['/usr/sbin/i2cdetect', '-y', '1'], capture_output=True)
